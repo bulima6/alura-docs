@@ -1,33 +1,13 @@
 import {
-  encontrarDocumento,
   atualizaDocumento,
-  obterDocumentos,
-  adicionarDocumento,
+  encontrarDocumento,
   excluirDocumento
-} from "./documentosDb.js";
-import io from "./servidor.js";
+} from "../db/documentosDb.js";
 
-io.on("connection", (socket) => {
-  socket.on("obter_documentos", async (devolverDocumentos) => {
-    const documentos = await obterDocumentos();
-    devolverDocumentos(documentos);
-  });
-
-  socket.on("adicionar_documento", async (nome) => {
-    const documentoExiste = (await encontrarDocumento(nome)) !== null;
-
-    if (documentoExiste) {
-      socket.emit("documento_existente", nome);
-    } else {
-      const resultado = await adicionarDocumento(nome);
-
-      if (resultado.acknowledge) {
-        io.emit("adicionar_documento_interface", nome);
-      }
-    }
-  });
+function registrarEventosDocumento (socket, io) {
   socket.on("selecionar_documento", async (nomeDocumento, devolverTexto) => {
     socket.join(nomeDocumento);
+
     const documento = await encontrarDocumento(nomeDocumento);
 
     if (documento) {
@@ -50,4 +30,6 @@ io.on("connection", (socket) => {
       io.emit("excluir_documento_sucesso", nome);
     }
   });
-});
+}
+
+export default registrarEventosDocumento;

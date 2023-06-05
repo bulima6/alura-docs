@@ -1,42 +1,47 @@
 import { documentosColecao } from "./dbConnect.js";
 
-function obterDocumentos () {
+function obterDocumentos() {
   const documentos = documentosColecao.find().toArray();
   return documentos;
 }
 
-function adicionarDocumento (nome) {
+function adicionarDocumento(nome) {
   const resultado = documentosColecao.insertOne({
     nome,
-    texto: ""
+    texto: "",
   });
 
   return resultado;
 }
-function encontrarDocumento (nome) {
+
+function encontrarDocumento(nome) {
   const documento = documentosColecao.findOne({
-    nome
+    nome,
   });
 
   return documento;
 }
 
-function atualizaDocumento (nome, texto) {
-  const atualizacao = documentosColecao.updateOne({
-    nome
-  }, {
-    $set: {
-      texto
+function atualizaDocumento(nome, texto) {
+  const atualizacao = documentosColecao.updateOne(
+    {
+      nome,
+    },
+    {
+      $set: {
+        texto,
+      },
     }
-  });
+  );
 
   return atualizacao;
 }
 
-function excluirDocumento (nome) {
+function excluirDocumento(nome) {
   const resultado = documentosColecao.deleteOne({
-    nome
+    nome,
   });
+
   return resultado;
 }
 
@@ -45,5 +50,5 @@ export {
   atualizaDocumento,
   obterDocumentos,
   adicionarDocumento,
-  excluirDocumento
+  excluirDocumento,
 };

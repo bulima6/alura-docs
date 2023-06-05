@@ -8,7 +8,7 @@ socket.emit("obter_documentos", (documentos) => {
   });
 });
 
-function emitirAdicionarDocumento (nome) {
+function emitirAdicionarDocumento(nome) {
   socket.emit("adicionar_documento", nome);
 }
 

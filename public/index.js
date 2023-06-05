@@ -10,19 +10,21 @@ form.addEventListener("submit", (evento) => {
   inputDocumento.value = "";
 });
 
-function inserirLinkDocumento (nomeDocumento) {
+function inserirLinkDocumento(nomeDocumento) {
   listaDocumentos.innerHTML += `
-    <a href="documento.html?nome=${nomeDocumento}" 
-    class="list-group-item list-group-item-action"
-    id="documento-${nomeDocumento}"
+    <a
+      href="/documento/index.html?nome=${nomeDocumento}"
+      class="list-group-item list-group-item-action"
+      id="documento-${nomeDocumento}"
     >
-        ${nomeDocumento}
-      </a>
-    `;
+      ${nomeDocumento}
+    </a>
+  `;
 }
 
-function removerLinkDocumento (nomeDocumento) {
+function removerLinkDocumento(nomeDocumento) {
   const documento = document.getElementById(`documento-${nomeDocumento}`);
+
   listaDocumentos.removeChild(documento);
 }
 
